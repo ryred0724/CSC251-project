@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Project_rylee_redden { 
+public class Demo
     public static void main(String[] args) {
         Scanner keyboard = new Scanner(System.in);
 
