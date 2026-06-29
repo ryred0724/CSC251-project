@@ -31,21 +31,29 @@ public class Project_rylee_redden {
         System.out.print("Please enter the Policyholder's Weight (in pounds): ");
         double weight = keyboard.nextDouble();
 
-        // 2. Instantiate the Policy object using your constructor
-        // Note: Make sure your constructor in Policy.java sets height and weight fields!
-        Policy policy = new Policy(policyNum, provider, first, last, age, smoker, height, weight);
+        // 2. Class Collaboration: First create the PolicyHolder (the person)
+        PolicyHolder holder = new PolicyHolder(first, last, age, smoker, height, weight);
 
-        // 3. Print the formatted outputs to match the sample assignment layout
-        System.out.println("\nPolicy Number: " + policy.getPolicyNumber());
-        System.out.println("Provider Name: " + policy.getProviderName());
-        System.out.println("Policyholder's First Name: " + policy.getFirstName());
-        System.out.println("Policyholder's Last Name: " + policy.getLastName());
-        System.out.println("Policyholder's Age: " + policy.getAge());
-        System.out.println("Policyholder's Smoking Status: " + policy.getSmokingStatus());
-        System.out.printf("Policyholder's Height: %.1f inches\n", policy.getHeight());
-        System.out.printf("Policyholder's Weight: %.1f pounds\n", policy.getWeight());
-        System.out.printf("Policyholder's BMI: %.2f\n", policy.calculateBMI());
-        System.out.printf("Policy Price: $%.2f\n", policy.calculatePrice());
+        // 3. Create the Policy, passing the holder object into it (Aggregation)
+        Policy policy = new Policy(policyNum, provider, holder);
+
+        // Track smoker vs non-smoker counts for the final display
+        int smokerCount = 0;
+        int nonSmokerCount = 0;
+
+        if (policy.getPolicyHolder().getSmokingStatus().equalsIgnoreCase("smoker")) {
+            smokerCount++;
+        } else {
+            nonSmokerCount++;
+        }
+
+        // 4. Step 6: Print information implicitly calling the toString() method
+        System.out.println("\n" + policy);
+
+        // 5. Step 7: Display the tracking counters and static object counts
+        System.out.println("There were " + Policy.getPolicyCount() + " Policy objects created.");
+        System.out.println("The number of policies with a smoker is: " + smokerCount);
+        System.out.println("The number of policies with a non-smoker is: " + nonSmokerCount);
         
         keyboard.close();
     }
